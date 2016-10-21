@@ -6,10 +6,7 @@ import se.soderstrand.martin.repository.crud.BaseRepository;
 
 import java.util.List;
 
-/**
- * Created by Martin on 2016-10-20.
- */
-public class ParkingSpaceRepository extends BaseRepository<ParkingSpace> {
+public final class ParkingSpaceRepository extends BaseRepository<ParkingSpace> {
 
     @Override
     public void create(ParkingSpace parkingSpace) throws RepositoryException {
@@ -17,8 +14,8 @@ public class ParkingSpaceRepository extends BaseRepository<ParkingSpace> {
     }
 
     @Override
-    public ParkingSpace read(Long id) throws RepositoryException {
-        return super.read(id);
+    public ParkingSpace read(Long id, Class<ParkingSpace> parkingSpace) throws RepositoryException {
+        return super.read(id, parkingSpace);
     }
 
     @Override

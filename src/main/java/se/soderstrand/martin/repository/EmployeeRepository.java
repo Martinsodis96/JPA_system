@@ -6,9 +6,6 @@ import se.soderstrand.martin.repository.crud.BaseRepository;
 
 import java.util.List;
 
-/**
- * Created by Martin on 2016-10-20.
- */
 public final class EmployeeRepository extends BaseRepository<Employee> {
 
     @Override
@@ -17,8 +14,8 @@ public final class EmployeeRepository extends BaseRepository<Employee> {
     }
 
     @Override
-    public Employee read(Long id) throws RepositoryException {
-        return super.read(id);
+    public Employee read(Long id, Class type) throws RepositoryException {
+        return super.read(id, type);
     }
 
     @Override

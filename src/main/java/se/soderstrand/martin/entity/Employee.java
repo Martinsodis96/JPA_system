@@ -3,7 +3,6 @@ package se.soderstrand.martin.entity;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name = "find all", query = "SELECT d FROM Employee d")
 public class Employee {
 
     @Id

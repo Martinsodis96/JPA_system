@@ -6,9 +6,6 @@ import se.soderstrand.martin.repository.crud.BaseRepository;
 
 import java.util.List;
 
-/**
- * Created by Martin on 2016-10-20.
- */
 public final class DepartmentRepository extends BaseRepository<Department> {
 
     @Override
@@ -17,8 +14,8 @@ public final class DepartmentRepository extends BaseRepository<Department> {
     }
 
     @Override
-    public Department read(Long id) throws RepositoryException {
-        return super.read(id);
+    public Department read(Long id, Class<Department> department) throws RepositoryException {
+        return super.read(id, department);
     }
 
     @Override

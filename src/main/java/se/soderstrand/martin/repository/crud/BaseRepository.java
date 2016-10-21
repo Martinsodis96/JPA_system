@@ -1,13 +1,11 @@
 package se.soderstrand.martin.repository.crud;
 
+import se.soderstrand.martin.entity.Employee;
 import se.soderstrand.martin.exception.RepositoryException;
 
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Martin on 2016-10-20.
- */
 public abstract class BaseRepository<T> implements CrudRepository<T> {
     private static final EntityManagerFactory FACTORY =
             Persistence.createEntityManagerFactory("JPA_system");
@@ -30,8 +28,19 @@ public abstract class BaseRepository<T> implements CrudRepository<T> {
     }
 
     @Override
-    public T read(Long id) throws RepositoryException {
-        return null;
+    public T read(Long id, Class<T> t) throws RepositoryException {
+        try{
+            manager = FACTORY.createEntityManager();
+            manager.getTransaction().begin();
+            T foundEntity = manager.find(t, id);
+            manager.getTransaction().commit();
+            return foundEntity;
+        }catch (Exception e){
+            manager.getTransaction().rollback();
+            throw new RepositoryException("Failed to create entity");
+        }finally {
+            manager.close();
+        }
     }
 
     @Override
@@ -45,11 +54,11 @@ public abstract class BaseRepository<T> implements CrudRepository<T> {
     }
 
     @Override
-    public List<T> getAll(Class type) throws RepositoryException {
+    public List<T> getAll(Class<T> type) throws RepositoryException {
         try{
             manager = FACTORY.createEntityManager();
             manager.getTransaction().begin();
-            Query query = manager.createQuery("SELECT u FROM " + type.getName() + " u", type);
+            TypedQuery<T> query = manager.createQuery("SELECT t FROM " + type.getName() + " t", type);
             manager.getTransaction().commit();
             return query.getResultList();
         }catch (Exception e){

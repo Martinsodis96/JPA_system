@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Martin on 2016-10-20.
  */
 public final class Main {
-    public static void main(String [] args){
+    public static void main(String[] args) {
         //Repo
         ParkingSpaceRepository parkingSpaceRepository = new ParkingSpaceRepository();
         EmployeeRepository employeeRepository = new EmployeeRepository();
@@ -37,6 +37,8 @@ public final class Main {
             departmentService.saveDepartment(department);
             employeeService.saveEmployee(employee);
             parkingSpaceService.saveParkingSpace(parkingSpace);
+
+            System.out.println(departmentService.getDepartment(1L).getName());
 
             List<Employee> employees = employeeService.getAllEmployees();
             employees.forEach(System.out::println);

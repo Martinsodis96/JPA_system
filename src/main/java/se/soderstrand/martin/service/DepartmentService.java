@@ -7,9 +7,6 @@ import se.soderstrand.martin.exception.ServiceException;
 import se.soderstrand.martin.repository.DepartmentRepository;
 import se.soderstrand.martin.repository.EmployeeRepository;
 
-/**
- * Created by Martin on 2016-10-20.
- */
 public final class DepartmentService {
     private DepartmentRepository departmentRepository;
 
@@ -22,6 +19,15 @@ public final class DepartmentService {
             departmentRepository.create(department);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save department with id: " + department.getId());
+        }
+    }
+
+    public Department getDepartment(Long id) throws ServiceException{
+        try {
+            return departmentRepository.read(id, Department.class);
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+            throw new ServiceException("Failed to save department with id: ");
         }
     }
 }
