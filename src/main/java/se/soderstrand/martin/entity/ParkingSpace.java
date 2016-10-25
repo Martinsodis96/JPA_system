@@ -3,7 +3,7 @@ package se.soderstrand.martin.entity;
 import javax.persistence.*;
 
 @Entity
-public class ParkingSpace {
+public class ParkingSpace extends AbstractEntity{
 
     @Id
     @GeneratedValue

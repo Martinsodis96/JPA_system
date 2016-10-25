@@ -15,17 +15,17 @@ public final class ParkingSpaceService {
         this.parkingSpaceRepository = parkingSpaceRepository;
     }
 
-    public void saveParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
+    public void storeParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
         try {
-            parkingSpaceRepository.create(parkingSpace);
+            parkingSpaceRepository.saveOrUpdate(parkingSpace);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to create Parking Space with id: " + parkingSpace.getId());
         }
     }
 
-    public ParkingSpace getParking(Long id) throws ServiceException{
+    public ParkingSpace getParkingById(Long id) throws ServiceException{
         try {
-            return parkingSpaceRepository.read(id, ParkingSpace.class);
+            return parkingSpaceRepository.findById(id);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save Parking space with id: " + id);
         }
@@ -42,17 +42,9 @@ public final class ParkingSpaceService {
 
     public List<ParkingSpace> getAllParkingSpaces() throws ServiceException {
         try {
-            return parkingSpaceRepository.getAll(ParkingSpace.class);
+            return parkingSpaceRepository.getAll();
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to get all Parking Spaces");
-        }
-    }
-
-    public void updateParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
-        try {
-            parkingSpaceRepository.update(parkingSpace);
-        } catch (RepositoryException e) {
-            throw new ServiceException("Failed to update parking space with id: " + parkingSpace.getId());
         }
     }
 }

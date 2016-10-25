@@ -16,17 +16,17 @@ public final class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public void saveDepartment(Department department) throws ServiceException {
+    public void storeDepartment(Department department) throws ServiceException {
         try {
-            departmentRepository.create(department);
+            departmentRepository.saveOrUpdate(department);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save department with id: " + department.getId());
         }
     }
 
-    public Department getDepartment(Long id) throws ServiceException{
+    public Department getDepartmentById(Long id) throws ServiceException{
         try {
-            return departmentRepository.read(id, Department.class);
+            return departmentRepository.findById(id);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save department with id: " + id);
         }
@@ -43,18 +43,9 @@ public final class DepartmentService {
 
     public List<Department> getAllDepartments() throws ServiceException {
         try {
-            return departmentRepository.getAll(Department.class);
+            return departmentRepository.getAll();
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to get all departments");
-        }
-    }
-
-
-    public void updateDepartment(Department department) throws ServiceException {
-        try {
-            departmentRepository.update(department);
-        } catch (RepositoryException e) {
-            throw new ServiceException("Failed to update department with id: " + department.getId());
         }
     }
 }

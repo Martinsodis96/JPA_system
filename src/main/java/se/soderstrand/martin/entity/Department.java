@@ -1,16 +1,10 @@
 package se.soderstrand.martin.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Department {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Department extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;
@@ -27,10 +21,6 @@ public class Department {
 
     public String getName() {
         return name;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Collection<Employee> getEmployees() {

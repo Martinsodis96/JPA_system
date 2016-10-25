@@ -15,17 +15,17 @@ public final class EmployeeService{
         this.employeeRepository = employeeRepository;
     }
 
-    public void saveEmployee(Employee employee) throws ServiceException {
+    public void storeEmployee(Employee employee) throws ServiceException {
         try {
-            employeeRepository.create(employee);
+            employeeRepository.saveOrUpdate(employee);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save employee with id: " + employee.getId());
         }
     }
 
-    public void getEmployee(Long id) throws ServiceException {
+    public void getEmployeeById(Long id) throws ServiceException {
         try{
-            employeeRepository.read(id, Employee.class);
+            employeeRepository.findById(id);
         }catch (RepositoryException e){
             throw new ServiceException("Failed to get Employee with id: " + id);
         }
@@ -41,17 +41,9 @@ public final class EmployeeService{
 
     public List<Employee> getAllEmployees() throws ServiceException {
         try {
-            return employeeRepository.getAll(Employee.class);
+            return employeeRepository.getAll();
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to get all Employees");
-        }
-    }
-
-    public void updateEmployee(Employee employee) throws ServiceException {
-        try {
-            employeeRepository.update(employee);
-        } catch (RepositoryException e) {
-            throw new ServiceException("Failed to update department with id: " + employee.getId());
         }
     }
 }

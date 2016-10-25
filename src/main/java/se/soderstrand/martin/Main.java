@@ -4,28 +4,31 @@ import se.soderstrand.martin.entity.Department;
 import se.soderstrand.martin.entity.Employee;
 import se.soderstrand.martin.entity.ParkingSpace;
 import se.soderstrand.martin.exception.ServiceException;
+import se.soderstrand.martin.repository.jpa.JpaDepartmentRepository;
 import se.soderstrand.martin.repository.ParkingSpaceRepository;
 import se.soderstrand.martin.repository.DepartmentRepository;
 import se.soderstrand.martin.repository.EmployeeRepository;
-import se.soderstrand.martin.repository.crud.BaseRepository;
-import se.soderstrand.martin.repository.crud.CrudRepository;
+import se.soderstrand.martin.repository.jpa.JpaEmployeeRepository;
+import se.soderstrand.martin.repository.jpa.JpaParkingSpaceRepository;
 import se.soderstrand.martin.service.DepartmentService;
 import se.soderstrand.martin.service.EmployeeService;
 import se.soderstrand.martin.service.ParkingSpaceService;
 
-import javax.persistence.EntityManager;
-import java.util.Collection;
-import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * Created by Martin on 2016-10-20.
  */
 public final class Main {
+    private static final EntityManagerFactory FACTORY =
+            Persistence.createEntityManagerFactory("jpa_system");
+
     public static void main(String[] args) {
         //Repo
-        ParkingSpaceRepository parkingSpaceRepository = new ParkingSpaceRepository();
-        EmployeeRepository employeeRepository = new EmployeeRepository();
-        DepartmentRepository departmentRepository = new DepartmentRepository();
+        ParkingSpaceRepository parkingSpaceRepository = new JpaParkingSpaceRepository(FACTORY);
+        EmployeeRepository employeeRepository = new JpaEmployeeRepository(FACTORY);
+        DepartmentRepository departmentRepository = new JpaDepartmentRepository(FACTORY);
 
         //Service
         ParkingSpaceService parkingSpaceService = new ParkingSpaceService(parkingSpaceRepository);
@@ -38,17 +41,10 @@ public final class Main {
         Employee employee2 = new Employee("Martina", "Söderstrand", "20", department);
         ParkingSpace parkingSpace = new ParkingSpace("test", employee1);
 
-        try {
-            departmentService.saveDepartment(department);
-            employeeService.saveEmployee(employee1);
-            employeeService.saveEmployee(employee2);
-
-            Department department1 = departmentService.getDepartment(1L);
-            Collection<Employee> employees = department1.getEmployees();
-            employees.forEach(e -> System.out.println(e.getFirstName()));
+       /* try {
 
         } catch (ServiceException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

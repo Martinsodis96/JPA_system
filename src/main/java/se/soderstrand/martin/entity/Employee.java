@@ -1,13 +1,13 @@
 package se.soderstrand.martin.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
-public class Employee {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Employee extends AbstractEntity{
 
     @Column(nullable = false)
     private String firstName;
@@ -29,10 +29,6 @@ public class Employee {
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
         this.department = department;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Department getDepartment() {
