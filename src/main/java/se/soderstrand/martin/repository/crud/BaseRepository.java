@@ -1,13 +1,12 @@
 package se.soderstrand.martin.repository.crud;
 
-import se.soderstrand.martin.entity.Employee;
 import se.soderstrand.martin.exception.RepositoryException;
 
 import javax.persistence.*;
 import java.util.List;
 
 public abstract class BaseRepository<T> implements CrudRepository<T> {
-    private static final EntityManagerFactory FACTORY =
+    public static final EntityManagerFactory FACTORY =
             Persistence.createEntityManagerFactory("JPA_system");
 
     private EntityManager manager;
@@ -31,26 +30,43 @@ public abstract class BaseRepository<T> implements CrudRepository<T> {
     public T read(Long id, Class<T> t) throws RepositoryException {
         try{
             manager = FACTORY.createEntityManager();
-            manager.getTransaction().begin();
-            T foundEntity = manager.find(t, id);
-            manager.getTransaction().commit();
-            return foundEntity;
+            return manager.find(t, id);
         }catch (Exception e){
             manager.getTransaction().rollback();
-            throw new RepositoryException("Failed to create entity");
+            throw new RepositoryException("Failed to read entity");
         }finally {
             manager.close();
         }
     }
 
     @Override
-    public void update(T t) {
-
+    public void update(T t) throws RepositoryException {
+        try{
+            manager = FACTORY.createEntityManager();
+            manager.getTransaction().begin();
+            manager.merge(t);
+            manager.getTransaction().commit();
+        }catch (Exception e){
+            manager.getTransaction().rollback();
+            throw new RepositoryException("Failed to update entity");
+        }finally {
+            manager.close();
+        }
     }
 
     @Override
-    public void changeStatus(T t) {
-
+    public void delete(T t) throws RepositoryException {
+        try{
+            manager = FACTORY.createEntityManager();
+            manager.getTransaction().begin();
+            manager.remove(t);
+            manager.getTransaction().commit();
+        }catch (Exception e){
+            manager.getTransaction().rollback();
+            throw new RepositoryException("Failed to remove entity");
+        }finally {
+            manager.close();
+        }
     }
 
     @Override

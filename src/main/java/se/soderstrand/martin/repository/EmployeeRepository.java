@@ -19,13 +19,13 @@ public final class EmployeeRepository extends BaseRepository<Employee> {
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Employee employee) throws RepositoryException {
         super.update(employee);
     }
 
     @Override
-    public void changeStatus(Employee employee) {
-        super.changeStatus(employee);
+    public void delete(Employee employee) throws RepositoryException {
+        super.delete(employee);
     }
 
     @Override

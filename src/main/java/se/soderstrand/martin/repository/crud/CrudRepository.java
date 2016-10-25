@@ -12,7 +12,7 @@ public interface CrudRepository<T> {
 
     void update(T t) throws RepositoryException;
 
-    void changeStatus(T t) throws RepositoryException;
+    void delete(T t) throws RepositoryException;
 
     List<T> getAll(Class<T> type) throws RepositoryException;
 }

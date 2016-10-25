@@ -7,10 +7,14 @@ import se.soderstrand.martin.exception.ServiceException;
 import se.soderstrand.martin.repository.ParkingSpaceRepository;
 import se.soderstrand.martin.repository.DepartmentRepository;
 import se.soderstrand.martin.repository.EmployeeRepository;
+import se.soderstrand.martin.repository.crud.BaseRepository;
+import se.soderstrand.martin.repository.crud.CrudRepository;
 import se.soderstrand.martin.service.DepartmentService;
 import se.soderstrand.martin.service.EmployeeService;
 import se.soderstrand.martin.service.ParkingSpaceService;
 
+import javax.persistence.EntityManager;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,21 +34,18 @@ public final class Main {
 
         //dummy entities
         Department department = new Department("Hotel");
-        Employee employee = new Employee("Martin", "Söderstrand", "1", department);
-        ParkingSpace parkingSpace = new ParkingSpace("test", employee);
+        Employee employee1 = new Employee("Martin", "Söderstrand", "10", department);
+        Employee employee2 = new Employee("Martina", "Söderstrand", "20", department);
+        ParkingSpace parkingSpace = new ParkingSpace("test", employee1);
 
         try {
             departmentService.saveDepartment(department);
-            employeeService.saveEmployee(employee);
-            parkingSpaceService.saveParkingSpace(parkingSpace);
+            employeeService.saveEmployee(employee1);
+            employeeService.saveEmployee(employee2);
 
-            System.out.println(departmentService.getDepartment(1L).getName());
-
-            List<Employee> employees = employeeService.getAllEmployees();
-            employees.forEach(System.out::println);
-
-            List<ParkingSpace> parkingSpaces = parkingSpaceService.getAllParkingSpaces();
-            parkingSpaces.forEach(parkingSpace1 -> System.out.println(parkingSpace1.getEmployee().getId()));
+            Department department1 = departmentService.getDepartment(1L);
+            Collection<Employee> employees = department1.getEmployees();
+            employees.forEach(e -> System.out.println(e.getFirstName()));
 
         } catch (ServiceException e) {
             e.printStackTrace();

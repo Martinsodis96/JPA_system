@@ -19,13 +19,13 @@ public final class ParkingSpaceRepository extends BaseRepository<ParkingSpace> {
     }
 
     @Override
-    public void update(ParkingSpace parkingSpace) {
+    public void update(ParkingSpace parkingSpace) throws RepositoryException {
         super.update(parkingSpace);
     }
 
     @Override
-    public void changeStatus(ParkingSpace parkingSpace) {
-        super.changeStatus(parkingSpace);
+    public void delete(ParkingSpace parkingSpace) throws RepositoryException {
+        super.delete(parkingSpace);
     }
 
     @Override

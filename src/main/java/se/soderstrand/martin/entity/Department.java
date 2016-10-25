@@ -1,6 +1,9 @@
 package se.soderstrand.martin.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Department {
@@ -11,6 +14,9 @@ public class Department {
 
     @Column(nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    private Collection<Employee> employees;
 
     protected Department() {
     }
@@ -25,5 +31,9 @@ public class Department {
 
     public Long getId() {
         return id;
+    }
+
+    public Collection<Employee> getEmployees() {
+        return employees;
     }
 }

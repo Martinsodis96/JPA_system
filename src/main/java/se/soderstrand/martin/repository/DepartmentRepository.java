@@ -19,13 +19,13 @@ public final class DepartmentRepository extends BaseRepository<Department> {
     }
 
     @Override
-    public void update(Department department) {
+    public void update(Department department) throws RepositoryException {
         super.update(department);
     }
 
     @Override
-    public void changeStatus(Department department) {
-        super.changeStatus(department);
+    public void delete(Department department) throws RepositoryException {
+        super.delete(department);
     }
 
     @Override

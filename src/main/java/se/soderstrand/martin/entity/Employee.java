@@ -38,4 +38,16 @@ public class Employee {
     public Department getDepartment() {
         return department;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmployeeNumber() {
+        return employeeNumber;
+    }
 }
