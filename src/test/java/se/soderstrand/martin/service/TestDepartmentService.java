@@ -30,12 +30,14 @@ public class TestDepartmentService {
     private EmployeeService employeeService;
     private Department department;
     private List<Department> departmentsToStore;
+    private List<Employee> employeesToStore;
 
 
     @Before
     public void setUp() {
         this.department = new Department("test");
         this.departmentsToStore = new ArrayList<>();
+        this.employeesToStore = new ArrayList<>();
         this.departmentRepository =  new JpaDepartmentRepository(FACTORY);
         this.employeeRepository = new JpaEmployeeRepository(FACTORY);
         this.departmentService = new DepartmentService(departmentRepository);
@@ -85,13 +87,15 @@ public class TestDepartmentService {
     public void canGetAllEmployeesFromDepartment() throws Exception {
         Department createdDepartment = departmentService.storeDepartment(department);
         int employeesInDepartment = 3;
-
-        for (int i = 0; i < employeesInDepartment; i++) {
-            employeeService.storeEmployee(new Employee("Test" + i, "Test" + i, "temp", department));
+        generateEmplyees(employeesInDepartment);
+        for (Employee e: employeesToStore) {
+            employeeService.storeEmployee(e);
         }
-
         Collection<Employee> employeesFromSource = departmentService.getEmployeesFromDepartment(createdDepartment.getId());
         assertEquals(employeesFromSource.size(), employeesInDepartment);
+
+        deleteManyEmployees(employeesToStore);
+        deleteOneDepartment(department);
     }
 
     private void deleteOneDepartment(Department department) throws ServiceException {
@@ -104,9 +108,21 @@ public class TestDepartmentService {
         }
     }
 
+    private void deleteManyEmployees(List<Employee> employees) throws ServiceException {
+        for (Employee emp : employees) {
+            employeeService.deleteEmployee(emp);
+        }
+    }
+
     private void generateDepartments(int amount){
         for (int i = 0; i < amount; i++) {
             departmentsToStore.add(new Department("test" + i));
+        }
+    }
+
+    private void generateEmplyees(int amount){
+        for (int i = 0; i < amount; i++) {
+            employeesToStore.add(new Employee("Test" + i, "Test" + i, "temp", department));
         }
     }
 }
