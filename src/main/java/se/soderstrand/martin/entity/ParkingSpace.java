@@ -3,6 +3,9 @@ package se.soderstrand.martin.entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries(value =
+    @NamedQuery(name = "ParkingSpace.GetAll", query = "SELECT ps FROM ParkingSpace ps")
+)
 public class ParkingSpace extends AbstractEntity{
 
     @Id

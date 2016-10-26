@@ -11,5 +11,5 @@ public interface CrudRepository<T extends AbstractEntity> {
 
     T findById(Long id) throws RepositoryException;
 
-    void delete(T t) throws RepositoryException;
+    T delete(T t) throws RepositoryException;
 }

@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@NamedQueries(value =
+    @NamedQuery(name = "Department.GetAll", query = "SELECT d FROM Department d")
+)
 public class Department extends AbstractEntity {
 
     @Column(nullable = false)

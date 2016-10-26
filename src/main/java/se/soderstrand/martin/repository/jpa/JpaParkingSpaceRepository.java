@@ -7,6 +7,8 @@ import se.soderstrand.martin.repository.crud.BaseRepository;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
+import static java.util.function.UnaryOperator.identity;
+
 /**
  * Created by Martin on 2016-10-25.
  */
@@ -18,6 +20,6 @@ public final class JpaParkingSpaceRepository extends BaseRepository<ParkingSpace
 
     @Override
     public List<ParkingSpace> getAll() {
-        return null;
+        return query("ParkingSpace.GetAll", identity());
     }
 }

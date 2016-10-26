@@ -22,7 +22,7 @@ import javax.persistence.Persistence;
  */
 public final class Main {
     private static final EntityManagerFactory FACTORY =
-            Persistence.createEntityManagerFactory("jpa_system");
+            Persistence.createEntityManagerFactory("JPA_system");
 
     public static void main(String[] args) {
         //Repo
@@ -41,10 +41,21 @@ public final class Main {
         Employee employee2 = new Employee("Martina", "Söderstrand", "20", department);
         ParkingSpace parkingSpace = new ParkingSpace("test", employee1);
 
-       /* try {
+        try {
+            departmentService.storeDepartment(department);
+            employeeService.storeEmployee(employee1);
+            employeeService.storeEmployee(employee2);
+            parkingSpaceService.storeParkingSpace(parkingSpace);
 
+            parkingSpaceService.getAllParkingSpaces().forEach(parkingSpace1 ->
+                    System.out.println(parkingSpace1.getEmployee()));
+
+            parkingSpaceService.deleteParkingSpace(parkingSpace);
+            employeeService.deleteEmployee(employee1);
+            employeeService.deleteEmployee(employee2);
+            departmentService.deleteDepartment(department);
         } catch (ServiceException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }

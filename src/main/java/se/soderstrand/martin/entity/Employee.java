@@ -1,12 +1,15 @@
 package se.soderstrand.martin.entity;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+
+@NamedQueries(value =
+    @NamedQuery(name = "Employee.GetAll", query = "SELECT e FROM Employee e")
+)
 public class Employee extends AbstractEntity{
 
     @Column(nullable = false)

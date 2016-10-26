@@ -9,6 +9,8 @@ import se.soderstrand.martin.repository.crud.CrudRepository;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
+import static java.util.function.UnaryOperator.identity;
+
 /**
  * Created by Martin on 2016-10-25.
  */
@@ -21,7 +23,7 @@ public final class JpaDepartmentRepository extends BaseRepository<Department>
 
     @Override
     public List<Department> getAll() {
-        return null;
+        return query("Department.GetAll", identity());
     }
 }
 
