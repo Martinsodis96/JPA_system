@@ -4,9 +4,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-/**
- * Created by Martin on 2016-10-25.
- */
 @MappedSuperclass
 public class AbstractEntity {
 

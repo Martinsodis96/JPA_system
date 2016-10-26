@@ -32,9 +32,9 @@ public final class ParkingSpaceService {
     }
 
 
-    public void deleteParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
+    public ParkingSpace deleteParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
         try {
-            parkingSpaceRepository.delete(parkingSpace);
+            return parkingSpaceRepository.delete(parkingSpace);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to delete parking space with id: " + parkingSpace.getId());
         }

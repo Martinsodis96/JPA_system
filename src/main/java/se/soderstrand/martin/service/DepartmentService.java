@@ -7,6 +7,7 @@ import se.soderstrand.martin.exception.ServiceException;
 import se.soderstrand.martin.repository.DepartmentRepository;
 import se.soderstrand.martin.repository.EmployeeRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 public final class DepartmentService {
@@ -16,9 +17,9 @@ public final class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public void storeDepartment(Department department) throws ServiceException {
+    public Department storeDepartment(Department department) throws ServiceException {
         try {
-            departmentRepository.saveOrUpdate(department);
+            return departmentRepository.saveOrUpdate(department);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save department with id: " + department.getId());
         }
@@ -32,9 +33,9 @@ public final class DepartmentService {
         }
     }
 
-    public void deleteDepartment(Department department) throws ServiceException {
+    public Department deleteDepartment(Department department) throws ServiceException {
         try {
-            departmentRepository.delete(department);
+            return departmentRepository.delete(department);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to delete department with id: " + department.getId());
         }
@@ -46,6 +47,15 @@ public final class DepartmentService {
             return departmentRepository.getAll();
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to get all departments");
+        }
+    }
+
+    public Collection<Employee> getEmployeesFromDepartment(Long id) throws ServiceException {
+        try {
+            Department department = departmentRepository.findById(id);
+            return department.getEmployees();
+        } catch (RepositoryException e) {
+            throw new ServiceException("Failed to get all employees fro department with id: " + id);
         }
     }
 }

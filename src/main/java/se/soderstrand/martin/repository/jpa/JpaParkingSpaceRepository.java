@@ -9,9 +9,6 @@ import java.util.List;
 
 import static java.util.function.UnaryOperator.identity;
 
-/**
- * Created by Martin on 2016-10-25.
- */
 public final class JpaParkingSpaceRepository extends BaseRepository<ParkingSpace> implements ParkingSpaceRepository {
 
     public JpaParkingSpaceRepository(EntityManagerFactory factory) {

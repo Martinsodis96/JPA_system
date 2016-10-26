@@ -23,17 +23,17 @@ public final class EmployeeService{
         }
     }
 
-    public void getEmployeeById(Long id) throws ServiceException {
+    public Employee getEmployeeById(Long id) throws ServiceException {
         try{
-            employeeRepository.findById(id);
+            return employeeRepository.findById(id);
         }catch (RepositoryException e){
             throw new ServiceException("Failed to get Employee with id: " + id);
         }
     }
 
-    public void deleteEmployee(Employee employee) throws ServiceException {
+    public Employee deleteEmployee(Employee employee) throws ServiceException {
         try {
-            employeeRepository.delete(employee);
+            return employeeRepository.delete(employee);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to delete employee with id: " + employee.getId());
         }
