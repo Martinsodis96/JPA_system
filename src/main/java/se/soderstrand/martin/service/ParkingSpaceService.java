@@ -15,12 +15,13 @@ public final class ParkingSpaceService {
         this.parkingSpaceRepository = parkingSpaceRepository;
     }
 
-    public void storeParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
+    public ParkingSpace storeParkingSpace(ParkingSpace parkingSpace) throws ServiceException {
         try {
             parkingSpaceRepository.saveOrUpdate(parkingSpace);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to create Parking Space with id: " + parkingSpace.getId());
         }
+        return parkingSpace;
     }
 
     public ParkingSpace getParkingById(Long id) throws ServiceException{
