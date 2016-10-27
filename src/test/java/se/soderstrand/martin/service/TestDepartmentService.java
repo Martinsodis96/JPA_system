@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TestDepartmentService {
+public final class TestDepartmentService {
 
     private static final EntityManagerFactory FACTORY =
             Persistence.createEntityManagerFactory("JPA_system_test");
@@ -87,7 +87,7 @@ public class TestDepartmentService {
     public void canGetAllEmployeesFromDepartment() throws Exception {
         Department createdDepartment = departmentService.storeDepartment(department);
         int employeesInDepartment = 3;
-        generateEmplyees(employeesInDepartment);
+        generateEmployees(employeesInDepartment);
         for (Employee e: employeesToStore) {
             employeeService.storeEmployee(e);
         }
@@ -120,7 +120,7 @@ public class TestDepartmentService {
         }
     }
 
-    private void generateEmplyees(int amount){
+    private void generateEmployees(int amount){
         for (int i = 0; i < amount; i++) {
             employeesToStore.add(new Employee("Test" + i, "Test" + i, "temp", department));
         }

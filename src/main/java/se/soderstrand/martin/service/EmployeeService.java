@@ -15,9 +15,9 @@ public final class EmployeeService{
         this.employeeRepository = employeeRepository;
     }
 
-    public void storeEmployee(Employee employee) throws ServiceException {
+    public Employee storeEmployee(Employee employee) throws ServiceException {
         try {
-            employeeRepository.saveOrUpdate(employee);
+            return employeeRepository.saveOrUpdate(employee);
         } catch (RepositoryException e) {
             throw new ServiceException("Failed to save employee with id: " + employee.getId());
         }
